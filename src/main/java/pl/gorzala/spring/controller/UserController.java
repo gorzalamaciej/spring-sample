@@ -19,25 +19,22 @@ import pl.gorzala.spring.type.response.UserResponse;
 @RequestMapping("/user")
 public class UserController {
 
-    private static final Logger logger = LoggerFactory.getLogger(UserController.class);
+  private static final Logger logger = LoggerFactory.getLogger(UserController.class);
 
-    @Autowired
-    private UserService userService;
+  @Autowired
+  private UserService userService;
 
-    @RequestMapping(method = RequestMethod.GET)
-    @ResponseBody
-    public UserResponse sayHello(String username) {
-        return userService.findUser(username);
-    }
+  @RequestMapping(value = "/get", method = RequestMethod.GET)
+  @ResponseBody
+  public UserResponse sayHello(String username) {
+    return userService.findUser(username);
+  }
 
-    @RequestMapping(value = "/add", method = RequestMethod.POST)
-    public @ResponseBody
-    GenericResponse getAccounts(@Valid @RequestBody UserRequest request) throws IOException {
-        logger.info("/user/add request: {}", request);
-        userService.addUser(request);
-        return new GenericResponse();
-    }
-
-
-
+  @RequestMapping(value = "/add", method = RequestMethod.POST)
+  public @ResponseBody
+  GenericResponse getAccounts(@Valid @RequestBody UserRequest request) throws IOException {
+    logger.info("/user/add request: {}", request);
+    userService.addUser(request);
+    return new GenericResponse();
+  }
 }
